@@ -2,10 +2,10 @@ package com.market.secondhandmarketplace.application.service.member;
 
 import com.market.secondhandmarketplace.application.dto.member.MemberDto;
 import com.market.secondhandmarketplace.domain.entity.member.Member;
-import com.market.secondhandmarketplace.domain.repository.DeleteMemberRepository;
-import com.market.secondhandmarketplace.domain.repository.MemberRepository;
+import com.market.secondhandmarketplace.domain.repository.member.DeleteMemberRepository;
+import com.market.secondhandmarketplace.domain.repository.member.MemberRepository;
 import com.market.secondhandmarketplace.globals.exception.BaseException;
-import com.market.secondhandmarketplace.presentation.error.MemberErrorCode;
+import com.market.secondhandmarketplace.globals.error.MemberErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,6 +54,7 @@ public class MemberServiceImpl implements MemberService{
         return true;
     }
 
+    @Override
     public Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(

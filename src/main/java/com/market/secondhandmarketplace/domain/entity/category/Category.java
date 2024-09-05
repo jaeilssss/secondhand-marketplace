@@ -27,7 +27,6 @@ public class Category extends AbstractEntity {
 
     private int depth;
 
-
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "parent")
     private List<Category> children =  new ArrayList<>();
