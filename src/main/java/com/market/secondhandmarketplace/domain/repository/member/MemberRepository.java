@@ -1,4 +1,4 @@
-package com.market.secondhandmarketplace.domain.repository;
+package com.market.secondhandmarketplace.domain.repository.member;
 
 import com.market.secondhandmarketplace.Infrastructure.repository.member.MemberRepositoryCustom;
 import com.market.secondhandmarketplace.domain.entity.member.Member;

@@ -38,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepository.findByParentCategoryList().stream().map(Category::toResponse).collect(Collectors.toList());
     }
 
+    @Override
     public Category getCategory(Long categoryId) {
         return categoryRepository.findCategory(categoryId)
                 .orElseThrow(() -> new BaseException(

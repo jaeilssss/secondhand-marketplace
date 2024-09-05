@@ -1,4 +1,4 @@
-package com.market.secondhandmarketplace.presentation.error;
+package com.market.secondhandmarketplace.globals.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

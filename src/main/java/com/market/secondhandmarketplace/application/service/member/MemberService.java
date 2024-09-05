@@ -1,6 +1,7 @@
 package com.market.secondhandmarketplace.application.service.member;
 
 import com.market.secondhandmarketplace.application.dto.member.MemberDto;
+import com.market.secondhandmarketplace.domain.entity.member.Member;
 
 public interface MemberService {
 
@@ -10,4 +11,5 @@ public interface MemberService {
             MemberDto.ModifyMember modifyMember,
             Long memberId);
     public boolean deleteMember(Long memberId);
+    public Member getMember(Long memberId);
 }
