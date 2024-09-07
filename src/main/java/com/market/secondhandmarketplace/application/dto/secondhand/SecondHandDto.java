@@ -1,7 +1,7 @@
 package com.market.secondhandmarketplace.application.dto.secondhand;
 
 import com.market.secondhandmarketplace.domain.entity.category.Category;
-import com.market.secondhandmarketplace.domain.entity.image.Image;
+import com.market.secondhandmarketplace.domain.entity.image.Images;
 import com.market.secondhandmarketplace.domain.entity.member.Member;
 import com.market.secondhandmarketplace.domain.entity.secondhand.SecondHand;
 import com.market.secondhandmarketplace.globals.factory.GeometryPoint;
@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SecondHandDto {
 
@@ -27,15 +26,15 @@ public class SecondHandDto {
         private List<String> imageUrlList;
 
         public SecondHand toEntity(Category category, Member member) {
-            List<Image> imageList = imageUrlList.stream()
-                    .map(it->Image.builder().url(it).build()).toList();
+            List<Images> imagesList = imageUrlList.stream()
+                    .map(it-> Images.builder().url(it).build()).toList();
             return SecondHand.builder()
                     .name(name)
                     .category(category)
                     .member(member)
                     .price(price)
                     .description(description)
-                    .imageUrlList(imageList)
+                    .imagesUrlList(imagesList)
                     .location(GeometryPoint.createPoint(latitude, longitude))
                     .build();
         }
