@@ -1,10 +1,7 @@
 package com.market.secondhandmarketplace.domain.entity.image;
 
 import com.market.secondhandmarketplace.domain.entity.AbstractEntity;
-import com.market.secondhandmarketplace.domain.entity.member.Member;
-import com.market.secondhandmarketplace.domain.entity.secondhand.SecondHand;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -12,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter @Setter
 @Builder
-public class Image extends AbstractEntity {
+public class Images extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
