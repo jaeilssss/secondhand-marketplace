@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -61,6 +63,11 @@ public class MemberServiceImpl implements MemberService{
                         MemberErrorCode.NOT_EXIST_MEMBER.getMessage(),
                         HttpStatus.NOT_FOUND
                 ));
+    }
+
+    @Override
+    public List<Member> getMemberList(List<Long> memberIdList) {
+        return memberRepository.getMemberList(memberIdList);
     }
 
 

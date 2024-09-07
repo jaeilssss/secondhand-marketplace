@@ -33,6 +33,8 @@ public class QSecondHand extends EntityPathBase<SecondHand> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<com.market.secondhandmarketplace.domain.entity.image.Images, com.market.secondhandmarketplace.domain.entity.image.QImages> imagesUrlList = this.<com.market.secondhandmarketplace.domain.entity.image.Images, com.market.secondhandmarketplace.domain.entity.image.QImages>createList("imagesUrlList", com.market.secondhandmarketplace.domain.entity.image.Images.class, com.market.secondhandmarketplace.domain.entity.image.QImages.class, PathInits.DIRECT2);
+
     public final ComparablePath<org.locationtech.jts.geom.Point> location = createComparable("location", org.locationtech.jts.geom.Point.class);
 
     public final com.market.secondhandmarketplace.domain.entity.member.QMember member;

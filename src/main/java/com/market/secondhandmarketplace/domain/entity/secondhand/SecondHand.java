@@ -3,7 +3,7 @@ package com.market.secondhandmarketplace.domain.entity.secondhand;
 import com.market.secondhandmarketplace.application.dto.secondhand.SecondHandDto;
 import com.market.secondhandmarketplace.domain.entity.AbstractEntity;
 import com.market.secondhandmarketplace.domain.entity.category.Category;
-import com.market.secondhandmarketplace.domain.entity.image.Image;
+import com.market.secondhandmarketplace.domain.entity.image.Images;
 import com.market.secondhandmarketplace.domain.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,7 +40,7 @@ public class SecondHand extends AbstractEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "secondhand_id")
-    private List<Image> imageUrlList;
+    private List<Images> imagesUrlList;
     public SecondHandDto.SecondHandResponse toResponse() {
         return SecondHandDto.SecondHandResponse.builder()
                 .name(name)
