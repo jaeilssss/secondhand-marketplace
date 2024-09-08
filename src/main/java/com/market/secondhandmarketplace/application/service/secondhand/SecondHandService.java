@@ -1,8 +1,10 @@
 package com.market.secondhandmarketplace.application.service.secondhand;
 
+import com.market.secondhandmarketplace.application.dto.pay.PayDto;
 import com.market.secondhandmarketplace.application.dto.secondhand.SecondHandDto;
 import com.market.secondhandmarketplace.domain.entity.category.Category;
 import com.market.secondhandmarketplace.domain.entity.member.Member;
+import com.market.secondhandmarketplace.domain.entity.secondhand.SecondHand;
 
 import java.util.List;
 
@@ -17,4 +19,6 @@ public interface SecondHandService {
     public SecondHandDto.SecondHandResponse modifySecondHand(Long id,SecondHandDto.ModifySecondHand modifySecondHand);
     public List<SecondHandDto.SecondHandResponse> mySecondHandList(int page, Long id);
     public boolean deleteSecondHand(Long id);
+    public SecondHand getSecondHand(Long id);
+
 }
