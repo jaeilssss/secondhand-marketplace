@@ -7,6 +7,7 @@ import com.market.secondhandmarketplace.domain.entity.member.Member;
 import com.market.secondhandmarketplace.globals.error.ChatRoomErrorCode;
 import com.market.secondhandmarketplace.globals.exception.BaseException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

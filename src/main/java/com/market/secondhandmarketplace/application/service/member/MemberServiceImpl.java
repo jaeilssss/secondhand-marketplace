@@ -7,6 +7,10 @@ import com.market.secondhandmarketplace.domain.repository.member.MemberRepositor
 import com.market.secondhandmarketplace.globals.exception.BaseException;
 import com.market.secondhandmarketplace.globals.error.MemberErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,8 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final DeleteMemberRepository deleteMemberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RedisTemplate<String, Object> redisTemplate;
+
     @Override
     @Transactional
     public boolean signUp(MemberDto.SignUpMember signUpMember) {
@@ -30,6 +36,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @Cacheable(cacheNames = "member", key = "#memberId")
     public MemberDto.MemberResponse getMemberInfo(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(
@@ -40,6 +47,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "member", allEntries = true, beforeInvocation = true, cacheManager = "cacheManager")
     public MemberDto.MemberResponse modifyMemberInfo(
             MemberDto.ModifyMember modifyMember,
             Long memberId) {
@@ -49,6 +57,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @CacheEvict(cacheNames = "member", allEntries = true, beforeInvocation = true, cacheManager = "cacheManager")
     public boolean deleteMember(Long memberId) {
         Member member = getMember(memberId);
         deleteMemberRepository.save(member.toDeleteMember());
