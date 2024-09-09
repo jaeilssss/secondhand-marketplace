@@ -26,6 +26,5 @@ public class ChatController {
         ));
 
         messageSendingOperations.convertAndSend("/sub/"+message.getChatRoomId(), message);
-
     }
 }

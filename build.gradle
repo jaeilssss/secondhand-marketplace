@@ -71,6 +71,9 @@ dependencies {
 
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 def querydslSrcDir = 'src/main/generated'

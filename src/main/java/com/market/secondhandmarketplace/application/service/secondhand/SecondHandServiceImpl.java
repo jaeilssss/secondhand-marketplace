@@ -8,6 +8,7 @@ import com.market.secondhandmarketplace.domain.repository.secondhand.SecondHandR
 import com.market.secondhandmarketplace.globals.error.SecondHandErrorCode;
 import com.market.secondhandmarketplace.globals.exception.BaseException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,7 @@ public class SecondHandServiceImpl implements SecondHandService {
     }
 
     @Override
+    @Cacheable(cacheNames = "MyListSecondHand", key = "#memberId")
     public List<SecondHandDto.SecondHandResponse> mySecondHandList(int page, Long id) {
         return secondHandRepository.findMySecondHandList(page, id)
                 .stream()
