@@ -24,3 +24,8 @@ jwt :
   secretKey: a2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbQ==
   expiration: 9600000
   refresh_expiration: 86400000
+
+
+api:
+  openWeatherApiKey: 0e7ae3c8bc4c6c849ab3b3688c99501a
+  openWeatherBaseUrl: https://api.openweathermap.org/data/2.5/weather

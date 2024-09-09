@@ -21,4 +21,6 @@ public interface SecondHandService {
     public boolean deleteSecondHand(Long id);
     public SecondHand getSecondHand(Long id);
 
+    public String getWeatherInfo(Double lat,  Double lon, String key);
+
 }

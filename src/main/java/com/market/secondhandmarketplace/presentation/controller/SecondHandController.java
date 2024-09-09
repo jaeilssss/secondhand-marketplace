@@ -80,4 +80,12 @@ public class SecondHandController {
                 APIResponseCode.OK.getMessage()
         );
     }
+
+    @GetMapping("/weather")
+    public Response getWeatherInfo(@RequestParam("lat") Double lat, @RequestParam("lon") Double lon) {
+        return Response.success(
+                secondHandService.getWeatherInfo(lat, lon,lat.toString() + lon.toString()),
+                APIResponseCode.OK.getMessage()
+        );
+    }
 }
