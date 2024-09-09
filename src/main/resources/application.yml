@@ -12,12 +12,12 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: update
+
 #      dialect: org.hibernate.spatial.dialect.mysql.MySQL8SpatialDialect
 #  main:
 #    allow-bean-definition-overriding: true
 server:
   port: 9090
-
 
 jwt :
   headers: Authorization

@@ -23,6 +23,8 @@ public class MemberRequest {
                 .build();
     }
 
+    @Getter @Setter
+    @Builder
     public static class ModifyMember {
         @NotBlank(message = "변경하는 이메일은 필수로 입력해야합니다.")
         private String email;

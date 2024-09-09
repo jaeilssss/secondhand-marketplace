@@ -1,9 +1,7 @@
 package com.market.secondhandmarketplace.application.dto.member;
 
 import com.market.secondhandmarketplace.domain.entity.member.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MemberDto {
@@ -38,6 +36,8 @@ public class MemberDto {
 
     @Getter @Setter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class MemberResponse {
         private Long id;
         private String email;
