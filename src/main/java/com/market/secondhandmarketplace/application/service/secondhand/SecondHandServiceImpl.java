@@ -1,5 +1,7 @@
 package com.market.secondhandmarketplace.application.service.secondhand;
 
+import com.market.secondhandmarketplace.Infrastructure.caller.weather.WeatherApiCaller;
+import com.market.secondhandmarketplace.Infrastructure.caller.weather.WeatherApiCallerImpl;
 import com.market.secondhandmarketplace.application.dto.secondhand.SecondHandDto;
 import com.market.secondhandmarketplace.domain.entity.category.Category;
 import com.market.secondhandmarketplace.domain.entity.member.Member;
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class SecondHandServiceImpl implements SecondHandService {
     private final SecondHandRepository secondHandRepository;
-
+    private final WeatherApiCaller weatherApiCaller;
     @Override
     @Transactional
     public boolean postSecondHand(
@@ -71,6 +73,12 @@ public class SecondHandServiceImpl implements SecondHandService {
                         SecondHandErrorCode.NOT_FOUND_SECONDHAND.getMessage(),
                         HttpStatus.NOT_FOUND
                 ));
+    }
+
+    @Override
+    @Cacheable(cacheNames = "weather", key = "#key")
+    public String getWeatherInfo(Double lat, Double lon, String key) {
+        return weatherApiCaller.getWeatherData(lat, lon).getWeather().get(0).getMain();
     }
 
 
