@@ -16,4 +16,6 @@ public interface MemberService {
     public Member getMember(Long memberId);
 
     public List<Member> getMemberList(List<Long> memberIdList);
+    public MemberDto.LoginResponse login(MemberDto.Login login);
+    public MemberDto.LoginResponse refresh(MemberDto.RefreshToken refreshToken);
 }
