@@ -6,12 +6,14 @@ import com.market.secondhandmarketplace.domain.repository.member.DeleteMemberRep
 import com.market.secondhandmarketplace.domain.repository.member.MemberRepository;
 import com.market.secondhandmarketplace.globals.exception.BaseException;
 import com.market.secondhandmarketplace.globals.error.MemberErrorCode;
+import com.market.secondhandmarketplace.globals.jwt.JwtProviders;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final DeleteMemberRepository deleteMemberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtProviders jwtProviders;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
@@ -53,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
             Long memberId) {
         Member member = getMember(memberId);
         member.modifyMemberInfo(modifyMember);
-        return null;
+        return member.toResponse();
     }
 
     @Override
@@ -79,5 +82,39 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.getMemberList(memberIdList);
     }
 
+    @Override
+    public MemberDto.LoginResponse login(MemberDto.Login login) {
+        Member member = getMemberByEmail(login.getEmail());
+        validatePassword(login.getPassword(), member.getPassword());
+        return jwtProviders.createToken(member.getEmail(), member.getId());
+    }
 
+    @Override
+    public MemberDto.LoginResponse refresh(MemberDto.RefreshToken refreshToken) {
+        if(checkRefreshToken(refreshToken.getRefreshToken())) {
+            Member member = getMember(refreshToken.getMemberId());
+            return jwtProviders.createToken(member.getEmail(), member.getId());
+        }
+        throw new BaseException(
+                MemberErrorCode.INVALID_REFRESH_TOKEN.getMessage(),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    public boolean checkRefreshToken(String refresh) {
+        return jwtProviders.validateToken(refresh);
+    }
+    public Member getMemberByEmail(String email) {
+         return memberRepository.findMemberByEmail(email)
+                 .orElseThrow(() -> new BaseException(
+                         MemberErrorCode.NOT_CORRECT_EMAIL_AND_PASSWORD.getMessage(),
+                         HttpStatus.BAD_REQUEST));
+    }
+
+    public void validatePassword(String encodedPassword, String password) {
+        if(!passwordEncoder.matches(password, encodedPassword))
+            throw new BaseException(
+                    MemberErrorCode.NOT_CORRECT_EMAIL_AND_PASSWORD.getMessage(),
+                    HttpStatus.BAD_REQUEST);
+    }
 }

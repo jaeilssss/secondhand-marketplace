@@ -6,6 +6,7 @@ import com.market.secondhandmarketplace.presentation.enums.APIResponseCode;
 import com.market.secondhandmarketplace.presentation.request.member.MemberRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +14,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
+    @PostMapping("/login")
+    public Response login(@RequestBody @Valid MemberRequest.Login login) {
+        return Response.success(
+                memberService.login(login.toDto()),
+                APIResponseCode.OK.getMessage()
+        );
+    }
+
     @PostMapping
     public Response signUp(@RequestBody @Valid MemberRequest memberRequest) {
         return Response.success(
@@ -43,6 +53,14 @@ public class MemberController {
     public Response deleteMember(@PathVariable("memberId") Long memberId) {
         return Response.success(
                 memberService.deleteMember(memberId),
+                APIResponseCode.OK.getMessage()
+        );
+    }
+
+    @PostMapping("/renew/refresh")
+    public Response refreshToken(@RequestBody @Valid MemberRequest.RefreshToken refreshToken) {
+        return Response.success(
+                memberService.refresh(refreshToken.toDto()),
                 APIResponseCode.OK.getMessage()
         );
     }
