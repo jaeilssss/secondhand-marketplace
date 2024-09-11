@@ -4,5 +4,8 @@ import com.market.secondhandmarketplace.Infrastructure.repository.member.MemberR
 import com.market.secondhandmarketplace.domain.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
+    public Optional<Member> findMemberByEmail(String email);
 }
