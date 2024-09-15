@@ -3,7 +3,12 @@
 
 ## Project Tech
 
-
+## 프로젝트 소개
+* **Tech** : Spring Boot 3.2.5, Spring data JPA, Spring Security, QueryDSL, WebSocket
+* **Server** : Amazon EC2
+* **Database** : MySQL, Redis
+* **Language** : Java
+* **ETC** : Lombok, Jenkins, Docker
 
 ## Project Architecture
 
