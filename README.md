@@ -18,7 +18,7 @@
 
 ![second-db-dia](https://github.com/user-attachments/assets/5a62baaf-54e7-4768-94ad-8792315413b2)
 
-## API 명세서
+## API Table
 
 |URL|Method|Description|Authentication|other|
 |----------|-----|-----|-----|-----|
