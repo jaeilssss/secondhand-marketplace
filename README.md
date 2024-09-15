@@ -17,3 +17,11 @@
 
 
 ![second-db-dia](https://github.com/user-attachments/assets/5a62baaf-54e7-4768-94ad-8792315413b2)
+
+## API 명세서
+
+|URL|Method|Description|Authentication|
+|----------|-----|-----|-----|
+|/api/member/login|POST|로그인 API|토큰 불필요|
+|/api/member|POST|회원가입 API|토큰 불필요|
+|/api/member/{memberId}|GET|회원 정보 조회 API|토큰 필요|
