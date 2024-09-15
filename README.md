@@ -1,6 +1,10 @@
 # 우리동네 중고 거래 시스템
 -------------
 
+## Project Tech
+
+
+
 ## Project Architecture
 
 ![secondhandArchitecture2](https://github.com/user-attachments/assets/29f55f68-abff-498b-84d3-6a7370fbd099)
