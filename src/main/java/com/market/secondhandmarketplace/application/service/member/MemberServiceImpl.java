@@ -34,6 +34,7 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public boolean signUp(MemberDto.SignUpMember signUpMember) {
         signUpMember.encodePassword(passwordEncoder);
+        validateIsExistEmail(signUpMember.getEmail());
         memberRepository.save(signUpMember.toEntity());
         return true;
     }
@@ -109,6 +110,15 @@ public class MemberServiceImpl implements MemberService{
                  .orElseThrow(() -> new BaseException(
                          MemberErrorCode.NOT_CORRECT_EMAIL_AND_PASSWORD.getMessage(),
                          HttpStatus.BAD_REQUEST));
+    }
+
+    public void validateIsExistEmail(String email) {
+        memberRepository.findMemberByEmail(email)
+                .ifPresent(member -> {
+                    throw new BaseException(
+                            MemberErrorCode.EXIST_EMAIL.getMessage(),
+                            HttpStatus.BAD_REQUEST);
+                });
     }
 
     public void validatePassword(String encodedPassword, String password) {
