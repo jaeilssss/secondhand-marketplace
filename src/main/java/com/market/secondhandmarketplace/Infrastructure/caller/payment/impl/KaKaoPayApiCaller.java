@@ -17,6 +17,7 @@ public class KaKaoPayApiCaller implements PaymentApiCaller {
 
     @Override
     public void pay(PayDto.Pay pay) {
+        log.info("KaKao pay 결제");
         log.info(pay.getSecondHand().getName() + "를" +pay.getSecondHand().getPrice() + "원 결제하셨습니다.");
     }
 }
