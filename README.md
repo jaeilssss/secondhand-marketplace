@@ -24,7 +24,7 @@
 |----------|-----|-----|-----|-----|
 |/api/member/login|POST|로그인 API|토큰 불필요|
 |/api/member|POST|회원가입 API|토큰 불필요| |
-|/api/member/{memberId}|GET|회원 정보 조회 API|토큰 필요||
+|/api/member/{memberId}|GET|회원 정보 조회 API|토큰 필요|
 |/api/member/{memberId}|PUT|회원 정보 수정 API|토큰 필요||
 |/api/member/{memberId}|DELETE|회원 탈퇴 API|토큰 필요||
 |/api/member/renew/refresh|POST|토큰 재 발행 API|토큰 필요||
