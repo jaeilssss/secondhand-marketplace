@@ -9,8 +9,8 @@
 * **ETC** : Lombok, Jenkins, Docker
 
 ## Project Architecture
+<img width="888" alt="Screenshot 2024-09-19 at 9 13 48 PM" src="https://github.com/user-attachments/assets/bb9c2425-a696-4595-8b1e-506b10dde8e8">
 
-![secondhandArchitecture2](https://github.com/user-attachments/assets/29f55f68-abff-498b-84d3-6a7370fbd099)
 
 ## ERD Diagram
 
