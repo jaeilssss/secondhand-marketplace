@@ -38,3 +38,5 @@
 |/api/chatroom|POST|채팅방 조회 API|토큰 필요|
 |/api/category|POST|카테고리 등록 API|토큰 필요|
 |/api/category|GET|전체 카테고리 리스트 조회 API|토큰 필요|
+
+-------------------
