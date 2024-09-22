@@ -98,20 +98,80 @@ class MemberControllerTest {
     }
 
     @Test
-    void getMemberInfo() {
+    @DisplayName("회원정보 조회 테스트")
+    void getMemberInfo() throws Exception {
 
+        MemberDto.MemberResponse memberResponse = MemberDto.MemberResponse.builder()
+                .id(1L)
+                .email("test@test.com")
+                .password("test")
+                .name("test")
+                .build();
+        when(memberService.getMemberInfo(any())).thenReturn(memberResponse);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/member/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
-    void modifyMemberInfo() {
+    @DisplayName("회원정보 수정 테스트")
+    void modifyMemberInfo() throws Exception {
+        MemberRequest.ModifyMember memberRequest =  MemberRequest.ModifyMember.builder()
+                .email("test@test.com")
+                .name("test")
+                .build();
+
+        MemberDto.MemberResponse memberResponse = MemberDto.MemberResponse.builder()
+                .id(1L)
+                .email("test@test.com")
+                .password("test")
+                .name("test")
+                .build();
+
+        when(memberService.modifyMemberInfo(any(),any())).thenReturn(memberResponse);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/member/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(memberRequest)))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
-    void deleteMember() {
+    @DisplayName("회원 탈퇴 테스트")
+    void deleteMember() throws Exception {
+
+        when(memberService.deleteMember(any())).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/member/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
-    void refreshToken() {
+    void refreshToken() throws Exception {
+        MemberRequest.RefreshToken refreshToken = MemberRequest.RefreshToken.builder()
+                .memberId(1L)
+                .refreshToken("test")
+                .build();
+
+        MemberDto.LoginResponse response = MemberDto.LoginResponse.builder()
+                .refreshToken("test")
+                .accessToken("test access")
+                .build();
+
+        when(memberService.refresh(any())).thenReturn(response);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/member/renew/refresh")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(refreshToken)))
+                .andExpect(status().isOk())
+                .andDo(print());
+        
+
     }
 
     private String asJsonString(final Object obj) {
