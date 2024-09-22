@@ -30,8 +30,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(MemberController.class)
 @Import(JpaConfig.class)  // 필요한 설정 클래스만 임포트
@@ -73,7 +72,7 @@ class MemberControllerTest {
                 .content(asJsonString(memberRequest)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().json(asJsonString(response)));
+                .andExpect(jsonPath("$.data").value(true));
     }
 
     @Test
@@ -112,6 +111,9 @@ class MemberControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/member/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.email").value("test@test.com"))
+                .andExpect(jsonPath("$.data.password").value("test"))
+                .andExpect(jsonPath("$.data.name").value("test"))
                 .andDo(print());
     }
 
@@ -136,6 +138,9 @@ class MemberControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(memberRequest)))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(1L))
+                .andExpect(jsonPath("$.data.email").value("test@test.com"))
+                .andExpect(jsonPath("$.data.name").value("test"))
                 .andDo(print());
     }
 
@@ -152,6 +157,7 @@ class MemberControllerTest {
     }
 
     @Test
+    @DisplayName("refresh Token을 이용한 token 재발행")
     void refreshToken() throws Exception {
         MemberRequest.RefreshToken refreshToken = MemberRequest.RefreshToken.builder()
                 .memberId(1L)
@@ -169,6 +175,8 @@ class MemberControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(refreshToken)))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.refreshToken").value("test"))
+                .andExpect(jsonPath("$.data.accessToken").value("test access"))
                 .andDo(print());
         
 
