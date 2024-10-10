@@ -38,7 +38,9 @@ public class SecondHand extends AbstractEntity {
 
     private Point location;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(cascade = CascadeType.ALL)
+
     @JoinColumn(name = "secondhand_id")
     private List<Images> imagesUrlList;
     public SecondHandDto.SecondHandResponse toResponse() {
