@@ -11,6 +11,10 @@ import lombok.*;
 @Builder
 public class Images extends AbstractEntity {
 
+    public Images(String url) {
+        this.url = url;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")

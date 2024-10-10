@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SecondHandDto {
@@ -26,8 +27,13 @@ public class SecondHandDto {
         private List<String> imageUrlList;
 
         public SecondHand toEntity(Category category, Member member) {
-            List<Images> imagesList = imageUrlList.stream()
-                    .map(it-> Images.builder().url(it).build()).toList();
+            List<Images> imagesList = null;
+            if(imageUrlList == null) {
+                imagesList = new ArrayList<>();
+            } else {
+                imagesList = imageUrlList.stream()
+                        .map(it-> Images.builder().url(it).build()).toList();
+            }
             return SecondHand.builder()
                     .name(name)
                     .category(category)
