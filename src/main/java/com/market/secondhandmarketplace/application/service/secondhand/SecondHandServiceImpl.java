@@ -1,5 +1,6 @@
 package com.market.secondhandmarketplace.application.service.secondhand;
 
+
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.market.secondhandmarketplace.Infrastructure.caller.weather.WeatherApiCaller;
@@ -11,10 +12,12 @@ import com.market.secondhandmarketplace.domain.entity.image.Images;
 import com.market.secondhandmarketplace.domain.entity.member.Member;
 import com.market.secondhandmarketplace.domain.entity.secondhand.SecondHand;
 import com.market.secondhandmarketplace.domain.repository.secondhand.ImageRepository;
+
 import com.market.secondhandmarketplace.domain.repository.secondhand.SecondHandRepository;
 import com.market.secondhandmarketplace.globals.error.SecondHandErrorCode;
 import com.market.secondhandmarketplace.globals.exception.BaseException;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +39,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class SecondHandServiceImpl implements SecondHandService {
     private final SecondHandRepository secondHandRepository;
+
     private final ImageRepository imageRepository;
     private final WeatherApiCaller weatherApiCaller;
 
@@ -50,13 +55,11 @@ public class SecondHandServiceImpl implements SecondHandService {
     ) {
         List<String> imageUrlList = imageUploader.upload(multipartFiles, member.getId());
         postSecondHand.setImageUrlList(imageUrlList);
+
         secondHandRepository.save(postSecondHand.toEntity(category, member));
         return true;
     }
-
-
-
-
+  
     @Override
     public List<SecondHandDto.SecondHandResponse> getMyAreaSecondHand(Double latitude, Double longitude, int page) {
         return secondHandRepository.findByLocation(page, latitude, longitude)
@@ -103,6 +106,7 @@ public class SecondHandServiceImpl implements SecondHandService {
         return weatherApiCaller.getWeatherData(lat, lon).getWeather().get(0).getMain();
     }
 
+
     @Async
     public CompletableFuture<List<String>> imageUpload(List<MultipartFile> multipartFiles, Long memberId) throws ExecutionException, InterruptedException {
         return CompletableFuture.completedFuture(imageUploader.upload(multipartFiles, memberId));
@@ -113,4 +117,5 @@ public class SecondHandServiceImpl implements SecondHandService {
     public SecondHand saveSecondHand(SecondHand secondHand) {
         return secondHandRepository.save(secondHand);
     }
+
 }

@@ -9,13 +9,17 @@ import com.market.secondhandmarketplace.presentation.request.secondhand.SecondHa
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -30,12 +34,14 @@ public class SecondHandController {
             @RequestPart("postSecondHand") @Valid SecondHandRequest.PostSecondHand postSecondHand,
             @RequestPart("multipartFiles") List<MultipartFile> multipartFiles
     ) throws IOException, ExecutionException, InterruptedException {
+
         return Response.success(
                 secondHandService.postSecondHand(
                         postSecondHand.toDto(),
                         memberService.getMember(postSecondHand.getMemberId()),
                         categoryService.getCategory(postSecondHand.getCategoryId()),
                         multipartFiles)
+
         );
     }
 
@@ -77,6 +83,7 @@ public class SecondHandController {
                 APIResponseCode.OK.getMessage()
         );
     }
+
 
     @GetMapping("/weather")
     public Response getWeatherInfo(@RequestParam("lat") Double lat, @RequestParam("lon") Double lon) {

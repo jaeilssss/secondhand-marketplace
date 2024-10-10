@@ -15,6 +15,7 @@ public class Images extends AbstractEntity {
         this.url = url;
     }
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
